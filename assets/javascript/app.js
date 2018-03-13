@@ -47,7 +47,8 @@ $(document).ready(function () {
                 p.text("Rating: " + results[i].rating)
 
                 var gifImage = $("<img>");
-                gifImage.attr("src", results[i].images.fixed_height.url);
+                gifImage.attr("src", results[i].images.fixed_height_still.url);
+                gifImage.attr("state", "still");
                 displayGif.append(gifImage);
                 displayGif.append(p);
                 $("#gifs-appear-here").prepend(displayGif);

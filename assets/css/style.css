@@ -1,0 +1,62 @@
+/* Global Styles */
+h4 {
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #E80C7A;
+    font-weight: bold;
+}
+
+/* Gif Display Styles */
+.display-gifs {
+    display: inline-block;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #777;
+}
+
+/* Search and Tag Column Styles */
+.search-col {
+    position: fixed;
+    right: 0;
+    background-color: #E80C7A;
+    height: 100vh;
+    padding: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 25px;
+}
+
+.btn {
+    border-radius: 25px;
+}
+
+.tags {
+    color: #fff;
+    background-color: #7F2D56;
+    border: none;
+    margin: 2px;
+    padding: 5px;
+}
+
+.tags:hover {
+    background-color: #CC0B6B;
+}
+
+/* Footer Styles */
+footer {
+    padding: 20px;
+    text-align: center;
+}

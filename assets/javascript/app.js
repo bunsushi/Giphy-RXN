@@ -101,6 +101,7 @@ $(document).ready(function () {
                     var downloadLink = $("<a>");
                     downloadLink.attr("href", results[i].images.original.url)
                     downloadLink.attr("download", "");
+                    downloadLink.attr("target", "_blank");
                     var download = $("<span class='pull-right glyphicon glyphicon-cloud-download'>");
                     downloadLink.append(download);
                     downloadWrapper.append(downloadLink);

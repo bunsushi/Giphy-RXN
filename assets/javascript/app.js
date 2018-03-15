@@ -25,7 +25,7 @@ $(document).ready(function () {
         }
     }
 
-    $("#go").on("click", function(event) {
+    $("#go").on("click", function (event) {
         event.preventDefault();
 
         var search = $("#search-term").val().trim();
@@ -75,33 +75,38 @@ $(document).ready(function () {
                 $("#gifs-appear-here").prepend(displayGif);
             }
 
-            // $(".gifs").hover(function () {
-            //     $(this).attr("src", $(this).attr("data-animate"));
-            //     $(this).attr("data-state", "animate");
-            // },
-            // function () {
-            //     $(this).attr("src", $(this).attr("data-still"));
-            //     $(this).attr("data-state", "still");
+            // $(".gifs").on("click", function () {
+            //     var state = $(this).attr("data-state");
+            //     console.log($(this).attr("src"));
+
+            //     if (state === "still") {
+            //         $(this).attr("src", $(this).attr("data-animate"));
+            //         $(this).attr("data-state", "animate");
+            //     } else if (state === "animate") {
+            //         $(this).attr("src", $(this).attr("data-still"));
+            //         $(this).attr("data-state", "still");
+            //     }
             // });
 
-            $(".gifs").on("click", function () {
-                var state = $(this).attr("data-state");
-                console.log($(this).attr("src"));
-
-                if (state === "still") {
-                    $(this).attr("src", $(this).attr("data-animate"));
-                    $(this).attr("data-state", "animate");
-                } else if (state === "animate") {
-                    $(this).attr("src", $(this).attr("data-still"));
-                    $(this).attr("data-state", "still");
-                }
-            });
-
-        }); 
+        });
 
     };
 
+    function animateGifs() {
+        var state = $(this).attr("data-state");
+        console.log($(this).attr("src"));
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else if (state === "animate") {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    }
+
     makeGifTags();
     $(document).on("click", ".tags", displayGifs);
+    $(document).on("click", ".gifs", animateGifs);
 
 });

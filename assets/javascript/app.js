@@ -12,6 +12,7 @@ $(document).ready(function () {
     var queryURL;
 
     var suggestedGifs = ["science", "biology", "chemistry", "physics", "mathematics", "Bill Nye", "Neil deGrasse Tyson"]
+    var userSearch = [];
 
     function makeGifTags() {
         for (var i = 0; i < suggestedGifs.length; i++) {
@@ -24,10 +25,27 @@ $(document).ready(function () {
         }
     }
 
-    makeGifTags();
+    $("#go").on("click", function(event) {
+        event.preventDefault();
 
-    $(".tags").on("click", function () {
+        var search = $("#search-term").val().trim();
+        userSearch.push(search);
+
+        $("#user-tags").text("");
+
+        for (var i = 0; i < userSearch.length; i++) {
+            var searchButton = $("<button>");
+            searchButton.addClass("tags");
+            searchButton.attr("data-name", userSearch[i]);
+            searchButton.html("<span class='glyphicon glyphicon-tag' aria-hidden='true'></span>" + " " + userSearch[i]);
+
+            $("#user-tags").append(searchButton);
+        }
+    });
+
+    function displayGifs() {
         gif = $(this).attr("data-name");
+        console.log(gif);
         queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             gif + "&api_key=" + apiKey + "&limit=10";
 
@@ -57,6 +75,15 @@ $(document).ready(function () {
                 $("#gifs-appear-here").prepend(displayGif);
             }
 
+            // $(".gifs").hover(function () {
+            //     $(this).attr("src", $(this).attr("data-animate"));
+            //     $(this).attr("data-state", "animate");
+            // },
+            // function () {
+            //     $(this).attr("src", $(this).attr("data-still"));
+            //     $(this).attr("data-state", "still");
+            // });
+
             $(".gifs").on("click", function () {
                 var state = $(this).attr("data-state");
                 console.log($(this).attr("src"));
@@ -68,10 +95,13 @@ $(document).ready(function () {
                     $(this).attr("src", $(this).attr("data-still"));
                     $(this).attr("data-state", "still");
                 }
-
             });
 
-        });
+        }); 
 
-    });
+    };
+
+    makeGifTags();
+    $(document).on("click", ".tags", displayGifs);
+
 });

@@ -4,13 +4,12 @@
 $(document).ready(function () {
 
     var apiKey = "DfJ63O6NryPFMaDm3SrMJ4Px1iwmzY4t";
-
     var gif;
     var queryURL;
-
-    var suggestedGifs = ["science", "biology", "chemistry", "physics", "mathematics", "Bill Nye", "Neil deGrasse Tyson"]
+    var suggestedGifs = ["science", "biology", "chemistry", "physics", "mathematics", "coding", "Bill Nye", "Marie Curie", "Neil deGrasse Tyson"]
     var userSearch = [];
 
+    // CREATE SUGGESTED GIF TAGS
     function makeGifTags() {
         for (var i = 0; i < suggestedGifs.length; i++) {
             var gifButton = $("<button>");
@@ -22,6 +21,7 @@ $(document).ready(function () {
         }
     }
 
+    // LOAD SEARCH TERM GIFS AND ADD TAG
     $("#go").on("click", function (event) {
         event.preventDefault();
 
@@ -48,11 +48,13 @@ $(document).ready(function () {
 
     });
 
+    // DISPLAY GIFS FROM TAG DATA-NAME
     function displayGifs() {
         gif = $(this).attr("data-name");
         callGif();
     };
 
+    // PAUSE AND ANIMATE GIFS
     function animateGifs() {
         var state = $(this).attr("data-state");
         console.log($(this).attr("src"));
@@ -66,6 +68,7 @@ $(document).ready(function () {
         }
     };
 
+    // AJAX CALL TO RETRIEVE GIFS FROM GIPHY
     function callGif() {
         queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             gif + "&api_key=" + apiKey + "&limit=10";
@@ -79,24 +82,30 @@ $(document).ready(function () {
 
             for (var i = 0; i < results.length; i++) {
 
-                var displayGif = $("<div>");
-                displayGif.addClass("display-gifs");
+                if (results[i].rating !== "r") {
+                    var displayGif = $("<div>");
+                    displayGif.addClass("display-gifs");
 
-                var p = $("<p>");
-                p.text("Rating: " + results[i].rating)
+                    var p = $("<p>");
+                    p.text("Rated: " + results[i].rating.toUpperCase());
 
-                var download = $("<span class='pull-right glyphicon glyphicon-cloud-download'>");
+                    var downloadLink = $("<a>");
+                    downloadLink.attr("href", results[i].images.original.url)
+                    downloadLink.attr("download", "");
+                    var download = $("<span class='pull-right glyphicon glyphicon-cloud-download'>");
+                    downloadLink.append(download);
 
-                var gifImage = $("<img>");
-                gifImage.attr("src", results[i].images.fixed_height_still.url);
-                gifImage.attr("data-state", "still");
-                gifImage.attr("data-still", results[i].images.fixed_height_still.url);
-                gifImage.attr("data-animate", results[i].images.fixed_height.url)
-                gifImage.addClass("gifs");
-                displayGif.append(gifImage);
-                p.append(download);
-                displayGif.append(p);
-                $("#gifs-appear-here").prepend(displayGif);
+                    var gifImage = $("<img>");
+                    gifImage.attr("src", results[i].images.fixed_height_still.url);
+                    gifImage.attr("data-state", "still");
+                    gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+                    gifImage.attr("data-animate", results[i].images.fixed_height.url)
+                    gifImage.addClass("gifs");
+                    displayGif.append(gifImage);
+                    p.append(downloadLink);
+                    displayGif.append(p);
+                    $("#gifs-appear-here").prepend(displayGif);
+                };
             };
 
         });

@@ -14,11 +14,11 @@ $(document).ready(function () {
     var suggestedGifs = ["science", "biology", "chemistry", "physics", "mathematics", "Bill Nye", "Neil deGrasse Tyson"]
 
     function makeGifTags() {
-        for (var i=0; i < suggestedGifs.length; i++) {
+        for (var i = 0; i < suggestedGifs.length; i++) {
             var gifButton = $("<button>");
             gifButton.addClass("tags");
             gifButton.attr("data-name", suggestedGifs[i]);
-            gifButton.html("<span class='glyphicon glyphicon-tag' aria-hidden='true'></span>" + " " +  suggestedGifs[i]);
+            gifButton.html("<span class='glyphicon glyphicon-tag' aria-hidden='true'></span>" + " " + suggestedGifs[i]);
 
             $("#starting-tags").append(gifButton);
         }
@@ -48,13 +48,30 @@ $(document).ready(function () {
 
                 var gifImage = $("<img>");
                 gifImage.attr("src", results[i].images.fixed_height_still.url);
-                gifImage.attr("state", "still");
+                gifImage.attr("data-state", "still");
+                gifImage.attr("data-still", results[i].images.fixed_height_still.url);
+                gifImage.attr("data-animate", results[i].images.fixed_height.url)
+                gifImage.addClass("gifs");
                 displayGif.append(gifImage);
                 displayGif.append(p);
                 $("#gifs-appear-here").prepend(displayGif);
             }
 
-        });
-    });
+            $(".gifs").on("click", function () {
+                var state = $(this).attr("data-state");
+                console.log($(this).attr("src"));
 
+                if (state === "still") {
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                } else if (state === "animate") {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+
+            });
+
+        });
+
+    });
 });

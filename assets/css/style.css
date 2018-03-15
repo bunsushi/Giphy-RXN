@@ -1,4 +1,8 @@
 /* Global Styles */
+body {
+    background-image: url("../images/geometry.png")
+}
+
 h4 {
     color: #fff;
 }
@@ -17,9 +21,13 @@ a:hover {
 /* Gif Display Styles */
 .display-gifs {
     display: inline-block;
+    background-color: #fff;
     margin: 15px;
     padding: 10px;
-    border: 1px solid #777;
+}
+
+.gifs:hover {
+    cursor: pointer;
 }
 
 /* Search and Tag Column Styles */

@@ -3,6 +3,10 @@ body {
     background-image: url("../images/geometry.png")
 }
 
+h1 {
+    font-family: "Rammetto One", cursive;
+}
+
 h4 {
     color: #fff;
 }

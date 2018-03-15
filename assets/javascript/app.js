@@ -1,7 +1,4 @@
 // TO-DO:
-// Make an array of objects to auto-populate suggested tags
-// Make gifs load still and on-click animate
-// Capture search terms to add new gif tags
 // Add one-click download buttons
 
 $(document).ready(function () {
@@ -41,11 +38,35 @@ $(document).ready(function () {
 
             $("#user-tags").append(searchButton);
         }
+
+        function displaySearchGif() {
+            gif = search;
+            callGif();
+        };
+
+        displaySearchGif();
+
     });
 
     function displayGifs() {
         gif = $(this).attr("data-name");
-        console.log(gif);
+        callGif();
+    };
+
+    function animateGifs() {
+        var state = $(this).attr("data-state");
+        console.log($(this).attr("src"));
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else if (state === "animate") {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    };
+
+    function callGif() {
         queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             gif + "&api_key=" + apiKey + "&limit=10";
 
@@ -64,6 +85,8 @@ $(document).ready(function () {
                 var p = $("<p>");
                 p.text("Rating: " + results[i].rating)
 
+                var download = $("<span class='pull-right glyphicon glyphicon-cloud-download'>");
+
                 var gifImage = $("<img>");
                 gifImage.attr("src", results[i].images.fixed_height_still.url);
                 gifImage.attr("data-state", "still");
@@ -71,39 +94,13 @@ $(document).ready(function () {
                 gifImage.attr("data-animate", results[i].images.fixed_height.url)
                 gifImage.addClass("gifs");
                 displayGif.append(gifImage);
+                p.append(download);
                 displayGif.append(p);
                 $("#gifs-appear-here").prepend(displayGif);
-            }
-
-            // $(".gifs").on("click", function () {
-            //     var state = $(this).attr("data-state");
-            //     console.log($(this).attr("src"));
-
-            //     if (state === "still") {
-            //         $(this).attr("src", $(this).attr("data-animate"));
-            //         $(this).attr("data-state", "animate");
-            //     } else if (state === "animate") {
-            //         $(this).attr("src", $(this).attr("data-still"));
-            //         $(this).attr("data-state", "still");
-            //     }
-            // });
+            };
 
         });
-
     };
-
-    function animateGifs() {
-        var state = $(this).attr("data-state");
-        console.log($(this).attr("src"));
-
-        if (state === "still") {
-            $(this).attr("src", $(this).attr("data-animate"));
-            $(this).attr("data-state", "animate");
-        } else if (state === "animate") {
-            $(this).attr("src", $(this).attr("data-still"));
-            $(this).attr("data-state", "still");
-        }
-    }
 
     makeGifTags();
     $(document).on("click", ".tags", displayGifs);

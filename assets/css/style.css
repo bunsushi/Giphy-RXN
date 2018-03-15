@@ -5,15 +5,19 @@ body {
 
 h1 {
     font-family: "Rammetto One", cursive;
+    text-align: center;
 }
 
-h4 {
+h3 {
+    text-align: center;
+}
+
+h4, h5 {
     color: #fff;
 }
 
 a {
     text-decoration: none;
-    color: #000;
 }
 
 a:hover {
@@ -23,11 +27,29 @@ a:hover {
 }
 
 /* Gif Display Styles */
+#gifs-appear-here {
+    text-align: center;
+}
+
 .display-gifs {
     display: inline-block;
     background-color: #fff;
     margin: 15px;
     padding: 10px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.display-gifs img {
+    padding-bottom: 10px;
+}
+
+.display-gifs a {
+    color: #000;
+}
+
+.display-gifs a:hover {
+    color: #E80C7A;
 }
 
 .gifs:hover {
@@ -71,4 +93,8 @@ a:hover {
 footer {
     padding: 20px;
     text-align: center;
+}
+
+footer a {
+    color: #000;
 }

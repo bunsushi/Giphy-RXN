@@ -97,11 +97,13 @@ $(document).ready(function () {
                     var p = $("<p>");
                     p.text("Rated: " + results[i].rating.toUpperCase());
 
+                    var downloadWrapper = $("<span>");
                     var downloadLink = $("<a>");
                     downloadLink.attr("href", results[i].images.original.url)
                     downloadLink.attr("download", "");
                     var download = $("<span class='pull-right glyphicon glyphicon-cloud-download'>");
                     downloadLink.append(download);
+                    downloadWrapper.append(downloadLink);
 
                     var gifImage = $("<img>");
                     gifImage.attr("src", results[i].images.fixed_height_still.url);
@@ -110,7 +112,7 @@ $(document).ready(function () {
                     gifImage.attr("data-animate", results[i].images.fixed_height.url)
                     gifImage.addClass("gifs");
                     displayGif.append(gifImage);
-                    p.append(downloadLink);
+                    p.append(downloadWrapper);
                     displayGif.append(p);
                     $("#gifs-appear-here").prepend(displayGif);
                 };

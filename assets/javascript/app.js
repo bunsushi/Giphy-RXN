@@ -45,6 +45,7 @@ $(document).ready(function () {
         };
 
         displaySearchGif();
+        scrollTop();
 
     });
 
@@ -52,9 +53,14 @@ $(document).ready(function () {
     function displayGifs() {
         gif = $(this).attr("data-name");
         callGif();
+        scrollTop();
+    };
+
+    // SCROLL TO TOP
+    function scrollTop() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
-    };
+    }
 
     // PAUSE AND ANIMATE GIFS
     function animateGifs() {
